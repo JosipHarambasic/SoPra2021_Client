@@ -41,11 +41,11 @@ const InputField = styled.input`
   border-radius: 20px;
   margin-bottom: 20px;
   background: rgba(255, 255, 255, 0.2);
-  color: yellow;
+  color: white;
 `;
 
 const Label = styled.label`
-  color: yellow;
+  color: white;
   margin-bottom: 10px;
   text-transform: uppercase;
 `;
