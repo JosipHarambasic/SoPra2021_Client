@@ -12,7 +12,7 @@ const FormContainer = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 300px;
-  justify-content: yellow;
+  justify-content: white;
 `;
 
 const Form = styled.div`
@@ -45,7 +45,7 @@ const InputField = styled.input`
 `;
 
 const Label = styled.label`
-  color: white;
+  color: yellow;
   margin-bottom: 10px;
   text-transform: uppercase;
 `;
