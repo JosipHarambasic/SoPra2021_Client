@@ -132,7 +132,7 @@ class Login extends React.Component {
           <Form>
             <Label>Username</Label>
             <InputField
-              placeholder="Enter here.."
+              placeholder="Enter what.."
               onChange={e => {
                 this.handleInputChange('username', e.target.value);
               }}
