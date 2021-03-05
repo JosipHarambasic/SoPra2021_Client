@@ -55,6 +55,11 @@ const ButtonContainer = styled.div`
   justify-content: center;
   margin-top: 20px;
 `;
+const Register = styled.label`
+  color: white;
+  text-transform: uppercase;
+`;
+
 
 /**
  * Classes in React allow you to have an internal state within the class and to have the React life-cycle for your component.
@@ -137,13 +142,14 @@ class Login extends React.Component {
                 this.handleInputChange('username', e.target.value);
               }}
             />
-            <Label>Name</Label>
+            <Label>Password</Label>
             <InputField
               placeholder="Enter here.."
               onChange={e => {
                 this.handleInputChange('name', e.target.value);
               }}
             />
+            <center><a href={"#Button"}><Register>create an account</Register></a></center>
             <ButtonContainer>
               <Button
                 disabled={!this.state.username || !this.state.name}
