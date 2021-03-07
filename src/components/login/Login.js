@@ -5,6 +5,8 @@ import { api, handleError } from '../../helpers/api';
 import User from '../shared/models/User';
 import { withRouter } from 'react-router-dom';
 import { Button } from '../../views/design/Button';
+import { BrowserRouter, Redirect, Switch, Link } from "react-router-dom";
+
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -57,7 +59,6 @@ const ButtonContainer = styled.div`
 `;
 const Register = styled.label`
   color: white;
-  text-transform: uppercase;
 `;
 
 
@@ -109,6 +110,9 @@ class Login extends React.Component {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
   }
+  async registration(){
+    this.props.history.push('/registration')
+  }
 
   /**
    *  Every time the user enters something in the input field, the state gets updated.
@@ -142,14 +146,17 @@ class Login extends React.Component {
                 this.handleInputChange('username', e.target.value);
               }}
             />
-            <Label>Password</Label>
+            <Label>Name</Label>
             <InputField
               placeholder="Enter here.."
               onChange={e => {
                 this.handleInputChange('name', e.target.value);
               }}
             />
-            <center><a href={"#Button"}><Register>create an account</Register></a></center>
+            <center>
+              <Link to={"/registration"}><Register>
+                CREATE AN ACCOUNT
+              </Register></Link></center>
             <ButtonContainer>
               <Button
                 disabled={!this.state.username || !this.state.name}
