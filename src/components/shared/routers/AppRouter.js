@@ -30,10 +30,10 @@ class AppRouter extends React.Component {
                 </GameGuard>
               )}
             />
-            <Route path="/registration"
+            <Route path="/registration" //name of the path
     exact
     render={() => (
-        <Registration></Registration>
+        <Registration/>     //which JS file to render
     )}/>
             <Route
               path="/login"

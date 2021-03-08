@@ -110,9 +110,7 @@ class Login extends React.Component {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
   }
-  async registration(){
-    this.props.history.push('/registration')
-  }
+
 
   /**
    *  Every time the user enters something in the input field, the state gets updated.
@@ -146,7 +144,7 @@ class Login extends React.Component {
                 this.handleInputChange('username', e.target.value);
               }}
             />
-            <Label>Name</Label>
+            <Label>Password</Label>
             <InputField
               placeholder="Enter here.."
               onChange={e => {
