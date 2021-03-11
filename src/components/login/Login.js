@@ -6,6 +6,7 @@ import User from '../shared/models/User';
 import { withRouter } from 'react-router-dom';
 import { Button } from '../../views/design/Button';
 import { BrowserRouter, Redirect, Switch, Link } from "react-router-dom";
+import axios from "axios";
 
 
 const FormContainer = styled.div`
@@ -78,28 +79,32 @@ class Login extends React.Component {
    * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: name and username
    * These fields are then handled in the onChange() methods in the resp. InputFields
    */
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: null,
-      username: null
+      username: null,
     };
+
   }
-  /**
-   * HTTP POST request is sent to the backend.
-   * If the request is successful, a new user is returned to the front-end
-   * and its token is stored in the localStorage.
-   */
+
+  /** HTTP put request is sending to the backend.
+   * it updates an existing user
+   * */
+
   async login() {
     try {
       const requestBody = JSON.stringify({
         username: this.state.username,
         name: this.state.name
       });
-      const response = await api.post('/users', requestBody);
+
+      // to update the existing user with his Username and password (name)
+      const response = await api.put('/login', requestBody);
 
       // Get the returned user and update a new object.
       const user = new User(response.data);
+      localStorage.setItem("loginId", user.id); //store login id
 
       // Store the token into the local storage.
       localStorage.setItem('token', user.token);
@@ -108,6 +113,8 @@ class Login extends React.Component {
       this.props.history.push(`/game`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
+      // send me back to the login page
+      this.props.history.push("/login")
     }
   }
 
@@ -117,10 +124,10 @@ class Login extends React.Component {
    * @param key (the key of the state for identifying the field that needs to be updated)
    * @param value (the value that gets assigned to the identified state key)
    */
-  handleInputChange(key, value) {
+  handleInputChange(key,value) {
     // Example: if the key is username, this statement is the equivalent to the following one:
     // this.setState({'username': value});
-    this.setState({ [key]: value });
+    this.setState({ [key]: value })
   }
 
   /**
@@ -130,7 +137,9 @@ class Login extends React.Component {
    * You may call setState() immediately in componentDidMount().
    * It will trigger an extra rendering, but it will happen before the browser updates the screen.
    */
+
   componentDidMount() {}
+
 
   render() {
     return (
@@ -140,35 +149,27 @@ class Login extends React.Component {
             <Label>Username</Label>
             <InputField
               placeholder="Enter here.."
-              onChange={e => {
-                this.handleInputChange('username', e.target.value);
-              }}
-            />
-            <Label>Password</Label>
+              onChange={e => {this.handleInputChange('username',e.target.value)}}/>
+            <Label>password</Label>
             <InputField
               placeholder="Enter here.."
-              onChange={e => {
-                this.handleInputChange('name', e.target.value);
-              }}
-            />
+              onChange={e => {this.handleInputChange('name',e.target.value)}}/>
             <center>
               <Link to={"/registration"}><Register>
                 CREATE AN ACCOUNT
               </Register></Link></center>
             <ButtonContainer>
               <Button
-                disabled={!this.state.username || !this.state.name}
-                width="50%"
-                onClick={() => {
-                  this.login();
-                }}
-              >
+                  disabled={!this.state.name || !this.state.username}
+                  width="50%"
+                  onClick={() => this.login()}>
                 Login
               </Button>
             </ButtonContainer>
           </Form>
         </FormContainer>
       </BaseContainer>
+
     );
   }
 }

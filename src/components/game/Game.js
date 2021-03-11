@@ -28,7 +28,9 @@ class Game extends React.Component {
   constructor() {
     super();
     this.state = {
-      users: null
+      users: null,
+      status: null,
+      creationDate: null
     };
   }
 
@@ -48,6 +50,7 @@ class Game extends React.Component {
       // Get the returned users and update the state.
       this.setState({ users: response.data });
 
+
       // This is just some data for you to see what is available.
       // Feel free to remove it.
       console.log('request to:', response.request.responseURL);
@@ -66,7 +69,7 @@ class Game extends React.Component {
     return (
       <Container>
         <h2>Happy Coding! </h2>
-        <p>Get all users from secure end point:</p>
+        <p>All registered Users</p>
         {!this.state.users ? (
           <Spinner />
         ) : (
@@ -74,7 +77,9 @@ class Game extends React.Component {
             <Users>
               {this.state.users.map(user => {
                 return (
-                  <PlayerContainer key={user.id}>
+                  <PlayerContainer
+                      key={user.id}
+                  >
                     <Player user={user} />
                   </PlayerContainer>
                 );
