@@ -2,43 +2,40 @@ import React from "react";
 import styled from "styled-components";
 import {withRouter} from "react-router-dom";
 
-const Container = styled.div`
-  margin: 6px 0;
-  width: 800px;
-  padding: 10px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  border: 1px solid #ffffff26;
-`;
 
 const UserName = styled.div`
-  font-weight: bold;
-  margin-left: auto;
+  margin-left: 10px;
+  color:white
 
 `;
 
-const Name = styled.div`
-  font-weight: bold;
-  color: #06c4ff;
-`;
-
-const Id = styled.div`
-  margin-left: auto;
-  margin-right: 10px;
-  font-weight: bold;
+const Status = styled.div`
+  margin-left: 10px;
+  color:white
 `;
 
 const CreationDate = styled.div`
-  margin-left: auto;
-  margin-right: 10px;
-  font-weight: bold;
+  margin-left: 10px;
+  color:white
 `;
 
 const BirthDate = styled.div`
-  margin-left: auto;
-  margin-right: 10px;
-  font-weight: bold;
+  margin-left: 10px;
+  color:white
+`;
+const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 375px;
+  height: 200px;
+  font-size: 16px;
+  font-weight: 300;
+  padding-left: 37px;
+  padding-right: 37px;
+  border-radius: 5px;
+  background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
+  transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 /**
@@ -49,19 +46,20 @@ const BirthDate = styled.div`
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const Profile = ({ user }) => {
+const ProfileDesign = ({ user }) => {
     return (
-        <Container>
+            <Form>
             <UserName>Username: {user.username}</UserName>
 
-            <Id>Online Status: {user.status}</Id>
+            <Status>Online Status: {user.status}</Status>
 
-            <CreationDate>Creation Date: {user.creationdate}</CreationDate>
+            <CreationDate>Creation Date: {user.creationDate}</CreationDate>
 
-            <BirthDate>Birth Date: {user.birthdate ? user.birthdate : "Not yet added"} </BirthDate>
+            <BirthDate>Birth Date: {user.birthday ? user.birthday : "-"} </BirthDate>
+            </Form>
 
-        </Container>
     );
 };
 
-export default Profile;
+
+export default ProfileDesign;

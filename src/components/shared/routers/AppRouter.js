@@ -31,9 +31,9 @@ class AppRouter extends React.Component {
               )}
             />
             <Route path="/registration" //name of the path
-    exact
-    render={() => (
-        <Registration/>     //which JS file to render
+                   exact
+                   render={() => (
+                    <Registration/>     //which JS file to render
     )}/>
             <Route
               path="/login"

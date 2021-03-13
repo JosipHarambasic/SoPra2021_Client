@@ -7,8 +7,8 @@ import { withRouter } from 'react-router-dom';
 import { Button } from '../../views/design/Button';
 import { BrowserRouter, Redirect, Switch, Link } from "react-router-dom";
 import axios from "axios";
-import Profile from "../../views/design/Profile";
-
+import ProfileDesign from "../../views/design/ProfileDesign";
+import Player from "../../views/Player";
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -19,48 +19,26 @@ const FormContainer = styled.div`
   justify-content: white;
 `;
 
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 60%;
-  height: 375px;
-  font-size: 16px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  border-radius: 5px;
-  background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
-  transition: opacity 0.5s ease, transform 0.5s ease;
+
+const Label = styled.label
+    `height: 35px;
+padding-left: 15px;
+margin-left: -4px;
+border: none;
+border-radius: 20px;
+margin-bottom: 20px;
+color: white;
+font-size: 30px
 `;
 
-const InputField = styled.input`
-  &::placeholder {
-    color: rgba(255, 255, 255, 1.0);
-  }
-  height: 35px;
-  padding-left: 15px;
-  margin-left: -4px;
-  border: none;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-`;
-
-const Label = styled.label`
-  color: white;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-`;
-const Register = styled.label`
-  color: white;
+const Register = styled.label
+`height: 35px;
+padding-left: 15px;
+margin-left: -4px;
+border: none;
+border-radius: 20px;
+margin-bottom: 20px;
+color: white;
 `;
 
 
@@ -84,49 +62,48 @@ class UserProfile extends React.Component {
         super(props);
         this.state = {
             user: null,
-            userID: localStorage.getItem("ProfileUser")
+            userId: localStorage.getItem("SelectedUser"),
         };
-        this.getUser();
+        this.getUser()
+
     }
 
+    // we set the user to the searched user with his userID
     async getUser(){
-        const url ="/users/"+this.state.userID;
+        const url ='/users/'+this.state.userId;
         const response = await api.get(url);
         const user = new User(response.data);
+        // the key gets set on new User(response.data);
         this.setState({user:user});
+
     }
 
     //need this instead of Mount because I can change my profile and this helps me to stay
     //with the actual situation
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        this.getUser();
-    }
+    componentDidUpdate(prevProps, prevState, snapshot) {this.getUser()}
 
 
     render() {
         return(
-            <BaseContainer>
                 <FormContainer>
-                    <Form>
-                        <h2>Profile</h2>
-                        {this.state.user?(<Profile user={this.state.user}/>):(<h1>Null</h1>)}
-                        <ButtonContainer>
+                    <center><Label>Profile</Label></center>
+                            {this.state.user?
+                                (<ProfileDesign user={this.state.user}/>): <h2>There is an error...</h2>}
+                            <center>
+                                <Link to={"/game/dashboard"}><Register>
+                                    BACK TO DASHBOARD
+                                </Register></Link></center>
                             <Button
-                            width={"40%"}
+                            width={"16%"}
                             onClick={() => {
-                                localStorage.setItem("ProfileUserEdit",this.state.userID);
-                                this.props.history.push("/game/dashboard/userProfile/edit");
+                                localStorage.setItem("SelectedUser",this.state.userId);
+                                this.props.history.push("profile/edit");
                             }}>
                                 Edit Profile
                             </Button>
-                            <center>
-                                <Link to={"/game/dashboard"}><Register>
-                                    EXIT
-                                </Register></Link></center>
-                        </ButtonContainer>
-                    </Form>
+
                 </FormContainer>
-            </BaseContainer>
+
         )
     }
 

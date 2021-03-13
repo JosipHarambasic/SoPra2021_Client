@@ -6,6 +6,7 @@ import Player from '../../views/Player';
 import { Spinner } from '../../views/design/Spinner';
 import { Button } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
+import { BrowserRouter, Redirect, Switch, Link } from "react-router-dom";
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -30,7 +31,6 @@ class Game extends React.Component {
     this.state = {
       users: null,
       status: null,
-      creationDate: null
     };
   }
 
@@ -38,6 +38,7 @@ class Game extends React.Component {
     localStorage.removeItem('token');
     this.props.history.push('/login');
   }
+
 
   async componentDidMount() {
     try {
@@ -68,8 +69,8 @@ class Game extends React.Component {
   render() {
     return (
       <Container>
-        <h2>Happy Coding! </h2>
-        <p>All registered Users</p>
+        <h2>Registered Users </h2>
+        <p>Click on User for inspection</p>
         {!this.state.users ? (
           <Spinner />
         ) : (
@@ -79,8 +80,9 @@ class Game extends React.Component {
                 return (
                   <PlayerContainer
                       key={user.id}
-                  >
-                    <Player user={user} />
+                      onClick={() => {localStorage.setItem("SelectedUser",user.id);
+                                      this.props.history.push("/game/dashboard/profile")}}>
+                    <Player user={user}/>
                   </PlayerContainer>
                 );
               })}

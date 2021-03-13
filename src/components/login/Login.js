@@ -101,10 +101,10 @@ class Login extends React.Component {
 
       // to update the existing user with his Username and password (name)
       const response = await api.put('/login', requestBody);
-
-      // Get the returned user and update a new object.
       const user = new User(response.data);
-      localStorage.setItem("loginId", user.id); //store login id
+
+      //need this setItem for editing the user Profile
+      localStorage.setItem("loggedIn", user.id); //store login id
 
       // Store the token into the local storage.
       localStorage.setItem('token', user.token);
