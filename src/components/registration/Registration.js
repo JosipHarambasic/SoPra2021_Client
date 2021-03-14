@@ -57,6 +57,9 @@ const ButtonContainer = styled.div`
   justify-content: center;
   margin-top: 20px;
 `;
+const Register = styled.label`
+  color: white;
+`;
 
 
 class Registration extends React.Component {
@@ -140,6 +143,10 @@ class Registration extends React.Component {
                             placeholder={"Enter your Password.."}
                             onChange={e=> this.handleInputChange("name",e.target.value)}>
                         </InputField>
+                        <center>
+                            <Link to={"/login"}><Register>
+                                BACK TO LOGIN
+                            </Register></Link></center>
                         <ButtonContainer>
                             <Button
                                 width={"50%"}
