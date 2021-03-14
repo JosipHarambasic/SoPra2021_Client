@@ -91,6 +91,8 @@ class Registration extends React.Component {
             // Get the returned user and update a new object.
             const user = new User(response.data);
 
+            localStorage.setItem("loggedIn", user.id);
+
             // Store the token and CreationDate into the local storage.
             localStorage.setItem('token', user.token);
 

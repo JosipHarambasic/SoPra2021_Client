@@ -7,6 +7,7 @@ import { Spinner } from '../../views/design/Spinner';
 import { Button } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
 import { BrowserRouter, Redirect, Switch, Link } from "react-router-dom";
+import User from "../shared/models/User";
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -31,12 +32,23 @@ class Game extends React.Component {
     this.state = {
       users: null,
       status: null,
+      loggedIn: localStorage.getItem("loggedIn")
     };
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    this.props.history.push('/login');
+  async logout() {
+    try {
+      const url = '/logout/' + this.state.loggedIn;
+      await api.put(url);
+
+      localStorage.removeItem('token');
+      localStorage.removeItem('loggedIn');
+      this.props.history.push('/login');
+    } catch (error) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('loggedIn');
+      this.props.history.push("/login");
+    }
   }
 
 

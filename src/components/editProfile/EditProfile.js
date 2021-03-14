@@ -75,7 +75,7 @@ class EditProfile extends React.Component{
 
     constructor() {
         super();
-        // first I need the data so i import the from my local storage
+        // first I need the data so i import it from my local storage
         this.state ={
             birthday: null,
             userID: localStorage.getItem("SelectedUser"),
